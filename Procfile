@@ -1,0 +1,1 @@
+web: gunicorn mlbodds.wsgi --log-file - 

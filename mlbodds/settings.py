@@ -13,9 +13,7 @@ import django_heroku
 import dj_database_url
 from pathlib import Path
 import os
-# from decouple import config
-# from dj_database_url import parse as dburl
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -23,14 +21,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = config('SECRET_KEY')
-SECRET_KEY = 'lir_magico_magico'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = config(
-#     'DEBUG'
-# )
-DEBUG = True
+SECRET_KEY = os.getenv('SECRET_KEY')
+
+
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -67,7 +62,7 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'mlbodds.urls'
 
 CORS_ORIGIN_WHITELIST = [
-    "http://localhost:3000"
+    "http://localhost:3000","https://basebets.firebaseapp.com"
 ]
 
 TEMPLATES = [
@@ -94,7 +89,6 @@ WSGI_APPLICATION = 'mlbodds.wsgi.application'
 
 default_dburl = 'postgresql://django_user:password@localhost:5432/basebets'
 
-# 'postgresql+psycopg2://django_user:password@localhost:5432/basebets'
 
 DATABASES = {
     'default': dj_database_url.config(),
@@ -151,9 +145,5 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-# STATICFILES_DIRS = (
-#     # This lets Django's collectstatic store our bundles
-#     # os.path.join(BASE_DIR, 'assets'),
-#     os.path.join(BASE_DIR, 'resources'),
-# )
+
 django_heroku.settings(locals())
